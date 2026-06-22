@@ -1,0 +1,116 @@
+/* Colores y fondo general */
+body {
+    background-color: #f0f2f5; 
+    font-family: Arial, sans-serif;
+}
+
+/* --- ESTILOS DE LA CABECERA --- */
+.login-header {
+    background-color: #e3f2fd; /* Un color celeste suave y profesional */
+    width: 100%;
+    border-bottom: 1px solid #bbdefb; /* Una línea sutil en la parte inferior para separar del contenido */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Una pequeña sombra para darle volumen */
+}
+
+.title-placeholder .logo-text {
+    font-family: Tahoma, Verdana, sans-serif;
+    letter-spacing: -1px;
+    font-size: 2rem;
+}
+
+/* Textos pequeños del form */
+.login-field .small, .forgot-link {
+    font-size: 11px;
+}
+
+.forgot-link {
+    color: #9cb4d8;
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+/* Inputs cuadrados estilo antiguo */
+.custom-input {
+    border-radius: 0;
+    border: 1px solid #1d2a5b;
+    width: 160px; 
+}
+
+/* Botón de Login */
+.btn-login {
+    background-color: #5b7bd5;
+    border: 1px solid #29447e;
+    color: white;
+    border-radius: 2px;
+    padding: 0.2rem 0.6rem;
+}
+
+.btn-login:hover {
+    background-color: #4b6bc5;
+    color: white;
+}
+
+.custom-checkbox {
+    width: 0.85em;
+    height: 0.85em;
+}
+
+/* --- ESTILOS BOTONES DE REGISTRO PEQUEÑOS --- */
+.registration-options .small {
+    font-size: 11px;
+}
+
+.btn-registro {
+    background-color: #4267b2; /* Azul sutilmente más claro */
+    color: #ffffff;
+    font-size: 0.75rem; /* Letra pequeña */
+    font-weight: bold;
+    border: 1px solid #29487d;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-registro:hover {
+    background-color: #4caf50; /* Tono verde clásico para "crear cuenta" */
+    color: white;
+    border-color: #388e3c;
+}
+
+/* --- ESTILOS PARA LA NUEVA PÁGINA DE REGISTRO --- */
+
+/* CLASE CSS: Imagen placeholder de fondo para registro.html */
+.bg-registro-placeholder {
+    /* PROPIEDAD BACKGROUND-IMAGE: Carga una imagen desde internet como prueba. 
+       Para usar tu propia imagen, cámbialo por: url('img/tu-fondo.jpg') */
+    background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    
+    /* PROPIEDAD BACKGROUND-SIZE: Asegura que la imagen cubra toda la pantalla sin deformarse */
+    background-size: cover;
+    
+    /* PROPIEDAD BACKGROUND-POSITION: Centra la imagen */
+    background-position: center;
+    
+    /* PROPIEDAD BACKGROUND-REPEAT: Evita que la imagen se repita como mosaico si la pantalla es muy grande */
+    background-repeat: no-repeat;
+    
+    /* PROPIEDAD BACKGROUND-ATTACHMENT: Fija la imagen para que no se mueva al hacer scroll */
+    background-attachment: fixed;
+}
+
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+}

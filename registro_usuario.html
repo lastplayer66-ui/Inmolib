@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario - InmobiliariaLibre</title>
+    <link rel="icon" href="img/1Logopng.PNG">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { background-color: #f8f9fa; }
+        .registro-container { max-width: 500px; margin: 40px auto; }
+    </style>
+</head>
+<body>
+
+    <div class="container registro-container">
+        <div class="text-center mb-4">
+            <img src="img/1Logopng.PNG" alt="Logo" style="width: 70px; margin-bottom: 10px;">
+            <h2 class="fw-bold">Crea tu cuenta de Usuario</h2>
+            <p class="text-muted">Busca propiedades y guárdalas en tus favoritos.</p>
+        </div>
+
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <form id="formRegistroUsuario" class="needs-validation" novalidate>
+                    <input type="hidden" name="rol" value="usuario">
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">RUT <span class="text-danger">*</span></label>
+                        <input type="text" name="rut" id="reg-rut" class="form-control" placeholder="Ej: 11222333-4" pattern="^[0-9]+-[0-9kK]{1}$" required>
+                        <div class="form-text" style="font-size: 0.75rem;">Sin puntos, con guion y dígito verificador.</div>
+                        <div class="invalid-feedback" style="font-size: 0.75rem;">Ingrese un RUT en formato válido.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nombre Completo <span class="text-danger">*</span></label>
+                        <input type="text" name="nombre" class="form-control" minlength="5" placeholder="Ej: Juan Pérez" pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$" required>
+                        <div class="invalid-feedback" style="font-size: 0.75rem;">Requerido. Mínimo 5 caracteres (solo letras y espacios).</div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Fecha Nac. <span class="text-danger">*</span></label>
+                            <input type="date" name="fecha_nacimiento" class="form-control" min="1945-01-01" max="2025-12-31" required>
+                            <div class="invalid-feedback" style="font-size: 0.75rem;">Ingrese una fecha válida.</div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Sexo <span class="text-danger">*</span></label>
+                            <select name="sexo" class="form-select" required>
+                                <option value="">Seleccione...</option>
+                                <option value="m">Masculino</option>
+                                <option value="f">Femenino</option>
+                                <option value="o">Otro</option>
+                            </select>
+                            <div class="invalid-feedback" style="font-size: 0.75rem;">Requerido.</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Teléfono Móvil <span class="text-danger">*</span></label>
+                        <input type="tel" name="telefono" class="form-control" placeholder="Ej: 912345678" pattern="^9\d{8}$" required>
+                        <div class="form-text" style="font-size: 0.75rem;">Debe tener 9 dígitos y comenzar con 9.</div>
+                        <div class="invalid-feedback" style="font-size: 0.75rem;">Ingrese un teléfono válido.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Correo Electrónico <span class="text-danger">*</span></label>
+                        <input type="email" name="email" class="form-control" placeholder="ejemplo@correo.cl" required>
+                        <div class="invalid-feedback" style="font-size: 0.75rem;">Ingrese un correo válido.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Contraseña <span class="text-danger">*</span></label>
+                        <input type="password" name="password" class="form-control" minlength="6" placeholder="Mínimo 6 caracteres" required>
+                        <div class="invalid-feedback" style="font-size: 0.75rem;">La contraseña debe tener al menos 6 caracteres.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 fw-bold py-2 mb-3" style="border-radius: 8px;">Solicitar Registro</button>
+                    
+                    <div class="text-center">
+                        <a href="index.php" class="text-decoration-none text-muted small">← Volver al inicio</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('formRegistroUsuario');
+
+            const validarRutChileno = (rutCompleto) => {
+                if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto)) return false;
+                const [rut, dv] = rutCompleto.split('-');
+                if (/^([0-9])\1+$/.test(rut)) return false;
+                let M = 0, S = 1;
+                for (let T = parseInt(rut, 10); T; T = Math.floor(T / 10)) {
+                    S = (S + T % 10 * (9 - M++ % 6)) % 11;
+                }
+                const dvCalculado = S ? (S - 1).toString() : 'k';
+                return dvCalculado === dv.toLowerCase();
+            };
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
+
+                if (!form.checkValidity()) {
+                    e.stopPropagation();
+                    form.classList.add('was-validated');
+                    
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Faltan datos',
+                        text: 'Por favor, completa correctamente los campos marcados en rojo.',
+                        confirmButtonColor: '#0d6efd'
+                    });
+                    return;
+                }
+
+                const inputRut = document.getElementById('reg-rut').value;
+                if (!validarRutChileno(inputRut)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'RUT Inválido',
+                        text: 'El RUT ingresado no es válido. Revisa el formato y el dígito verificador.',
+                        confirmButtonColor: '#dc3545'
+                    }).then(() => {
+                        document.getElementById('reg-rut').focus();
+                    });
+                    return;
+                }
+
+                const formData = new FormData(form);
+
+                Swal.fire({
+                    title: 'Procesando...',
+                    text: 'Enviando tu solicitud al servidor.',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                try {
+                    const resp = await fetch('backend/procesar_registro_publico.php', { 
+                        method: 'POST', 
+                        body: formData 
+                    });
+                    
+                    const res = await resp.json();
+
+                    if (res.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Registro Exitoso!',
+                            text: res.message,
+                            confirmButtonColor: '#198754'
+                        }).then(() => {
+                            window.location.href = 'index.php';
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error de validación',
+                            text: res.message, 
+                            confirmButtonColor: '#dc3545'
+                        });
+                    }
+                } catch (err) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de red',
+                        text: 'No se pudo conectar con el servidor AWS.',
+                        confirmButtonColor: '#dc3545'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
