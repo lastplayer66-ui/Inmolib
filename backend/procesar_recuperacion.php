@@ -44,8 +44,8 @@ try {
         $mail->SMTPAuth   = true;
         
         // ---> MODIFICA ESTOS DOS DATOS <---
-        $mail->Username   = 'vaaro777@gmail.com'; 
-        $mail->Password   = 'cyzi dlxg okau ytun'; 
+        $mail->Username   = ''; 
+        $mail->Password   = ''; 
         
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
