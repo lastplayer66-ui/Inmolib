@@ -51,7 +51,7 @@ try {
         $mail->Port       = 465;
 
         // Remitente y Destinatario
-        $mail->setFrom('vaaro777@gmail.com', 'InmobiliariaLibre');
+        $mail->setFrom('', 'InmobiliariaLibre');
         $mail->addAddress($email, $usuario['nombre_completo']);
 
         // Contenido del Correo
